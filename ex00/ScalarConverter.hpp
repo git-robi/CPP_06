@@ -21,7 +21,6 @@ class ScalarConverter
         ScalarConverter &operator=(ScalarConverter const &other);
         ~ScalarConverter();
 
-        // Helper methods for conversion
         static void printChar(double d);
         static void printInt(double d);
         static void printFloat(double d);

@@ -7,7 +7,7 @@ int main()
     data->number = 42;
     data->text = "Hello, World!";
 
-    uintptr_t serialized = Serializer::serialize(data);
+    size_t serialized = Serializer::serialize(data);
     Data* deserialized = Serializer::deserialize(serialized);
 
   

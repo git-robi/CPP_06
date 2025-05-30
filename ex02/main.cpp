@@ -17,7 +17,7 @@ Base* generate()
         case 1: return new B();
         case 2: return new C();
     }
-    return NULL;
+    return 0;
 }
 
 void identify(Base& p)
@@ -63,7 +63,8 @@ int main()
     std::cout << "=== Testing generate() and identify() functions ===\n" << std::endl;
     
     // Test multiple random generations
-    for (int i = 0; i < 5; i++) {
+    int i;
+    for (i = 0; i < 5; ++i) {
         std::cout << "Test " << i + 1 << ": " << std::endl;
         Base* ptr = generate();
         
@@ -98,7 +99,7 @@ int main()
 
     // Test with NULL pointer
     std::cout << "\n=== Testing with NULL pointer ===\n" << std::endl;
-    identify(static_cast<Base*>(NULL));
+    identify(static_cast<Base*>(0));
 
     return 0;
 }

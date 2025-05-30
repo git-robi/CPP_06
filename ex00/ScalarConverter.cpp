@@ -17,15 +17,14 @@ ScalarConverter::~ScalarConverter(){}
 
 bool ScalarConverter::isInt(std::string const value)
 {
-    try {
-        std::size_t pos;
-        std::stoi(value, &pos);
-        return pos == value.length(); 
-    } 
-    catch (const std::exception&) 
-    {
+    char* endptr;
+    const char* str = value.c_str();
+    long val = strtol(str, &endptr, 10);
+    
+    if (*endptr != '\0' || endptr == str)
         return false;
-    }
+    
+    return (val >= INT_MIN && val <= INT_MAX);
 }
 
 bool ScalarConverter::isChar(std::string const value)
@@ -46,31 +45,23 @@ bool ScalarConverter::isPseudoLiteral(std::string const value)
 
 bool ScalarConverter::isFloat(std::string const value)
 {
-    if (value.back() != 'f')
+    if (value[value.length() - 1] != 'f')
         return false;
         
-    try {
-        std::size_t pos;
-        std::stof(value, &pos);
-        return pos == value.length() - 1;
-    } 
-    catch (const std::exception&) 
-    {
-        return false;
-    }
+    char* endptr;
+    const char* str = value.c_str();
+    strtof(str, &endptr);
+    
+    return (*endptr == 'f' && endptr == str + value.length() - 1);
 }
 
 bool ScalarConverter::isDouble(std::string const value)
 {
-    try {
-        std::size_t pos;
-        std::stod(value, &pos);
-        return pos == value.length();
-    } 
-    catch (const std::exception&) 
-    {
-        return false;
-    }
+    char* endptr;
+    const char* str = value.c_str();
+    strtod(str, &endptr);
+    
+    return (*endptr == '\0');
 }
 
 int ScalarConverter::GetType(std::string const value)
@@ -134,16 +125,19 @@ void ScalarConverter::handlePseudoLiteral(std::string const value)
 
 double ScalarConverter::convertToDouble(std::string const value, int type)
 {
+    const char* str = value.c_str();
+    char* endptr;
+    
     switch(type)
     {
         case CHAR:
             return static_cast<double>(value[0]);
         case INT:
-            return static_cast<double>(std::stoi(value));
+            return static_cast<double>(strtol(str, &endptr, 10));
         case FLOAT:
-            return static_cast<double>(std::stof(value));
+            return static_cast<double>(strtof(str, &endptr));
         case DOUBLE:
-            return std::stod(value);
+            return strtod(str, &endptr);
         default:
             throw std::invalid_argument("Invalid type");
     }

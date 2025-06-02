@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Data.hpp"
+#include <stdint.h>
 
 class Serializer
 { 
@@ -11,7 +12,7 @@ class Serializer
         ~Serializer();
     
     public:
-        static size_t serialize(Data* ptr);
-        static Data* deserialize(size_t raw);
+        static uintptr_t serialize(Data* ptr);
+        static Data* deserialize(uintptr_t raw);
 
 };

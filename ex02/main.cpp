@@ -6,7 +6,7 @@
 /*   By: rgiambon <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/02 12:47:50 by rgiambon          #+#    #+#             */
-/*   Updated: 2025/06/02 12:47:52 by rgiambon         ###   ########.fr       */
+/*   Updated: 2025/06/02 13:28:57 by rgiambon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ void identify(Base& p)
         std::cout << "A" << std::endl;
         return;
     } 
-    catch(const std::bad_cast&) {}
+    catch(...) {}
 
     try
     {
@@ -48,14 +48,14 @@ void identify(Base& p)
         std::cout << "B" << std::endl;
         return;
     } 
-    catch(const std::bad_cast&) {}  
+    catch(...) {}  
 
     try 
     {
         (void)dynamic_cast<C&>(p);  
         std::cout << "C" << std::endl;
     } 
-    catch(const std::bad_cast&) {}
+    catch(...) {}
 }
 
 void identify(Base* p)
